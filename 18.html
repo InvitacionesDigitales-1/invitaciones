@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación</title>
+
+   <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'TangerineBold', serif;
+        color: black;
+        background-color: #f8f9fa;
+    }
+
+    @font-face {
+        font-family: 'TangerineBold';
+        src: url('recursos/Tangerine-Bold.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    /* Secciones principales */
+    .hero {
+        min-height: 100vh;
+        background: url("recursos/19.jpg") center/cover no-repeat fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 20px;
+        box-sizing: border-box;
+    }
+
+    .segunda-seccion {
+        background: white;
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .tercera-seccion {
+        background: url("recursos/frida.png") center/cover no-repeat;
+        padding: 60px 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cuarta-seccion{
+        min-height: 70vh;
+        background: url("recursos/4itinerario.png") center center/contain no-repeat;
+        background-color: #ffffff;
+    }
+
+    /* Contenedor principal del texto */
+    .encabezado-seccion {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Alinea el h1 y el SVG en la misma línea */
+    .titulo-con-icono {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px; /* Aumentado para dar aire al icono más grande */
+    }
+
+    /* Título de la invitación (MÁS GRANDE) */
+    .titulo-festejo {
+        font-size: clamp(3rem, 10vw, 4.5rem); /* Escalado inicial más agresivo para móvil */
+        color: white;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        margin: 0 0 5px 0;
+        text-align: center;
+        font-weight: bold;
+        line-height: 1.1;
+    }
+
+    /* SVG número 1: Al lado del texto (MÁS GRANDE) */
+    .svg-al-lado {
+        width: clamp(60px, 11vw, 80px); /* Incrementado el tamaño mínimo y máximo */
+        height: auto;
+        filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.5));
+    }
+
+
+
+    /* SVG número 2: Abajo del texto (MÁS GRANDE) */
+    .svg-abajo {
+        width: 70px; /* Incrementado de 50px a 70px */
+        height: auto;
+        filter: drop-shadow(0px 3px 6px rgba(0,0,0,0.5));
+    }
+
+    /* Contenedor compacto que agrupa el título y la tarjeta */
+    .contenedor-hero-vertical {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 20px; /* Más espacio entre elementos */
+    }
+
+    /* 1. TARJETA MÁS GRANDE EN CELULARES */
+    .tarjeta-pequena {
+        background: #ffffff;
+        width: 90%;               /* Subió de 70% a 90% para abarcar más pantalla en móvil */
+        max-width: 340px;         /* Subió de 250px a 340px para que no se vea miniatura */
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, .45);
+        padding: 12px 12px 8px 12px; 
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    /* 2. ALTURA DE IMAGEN AJUSTADA AL NUEVO TAMAÑO */
+    .foto img {
+        display: block;
+        width: 100%;
+        height: 190px;            /* Subió de 140px a 190px proporcional al ancho */
+        object-fit: cover;        
+        border-radius: 14px;
+    }
+
+    /* 3. CALENDARIO CON LETRAS MÁS GRANDES */
+    .calendario-interno {
+        text-align: center;
+        padding: 12px 0 6px 0;    
+    }
+
+    .mes {
+        font-size: clamp(1.5rem, 5vw, 1.9rem); /* Letras más legibles y grandes */
+        color: #333333;
+        margin: 0 0 6px 0;
+        letter-spacing: 2px;
+        font-weight: bold;
+    }
+
+    .svg-calendario {
+        width: 90%;
+        max-width: 180px;         /* Incrementado el tamaño del mapa del calendario */
+        height: auto;
+        display: inline-block;
+    }
+
+    /* Caja de Cuenta Regresiva */
+    .countdown {
+        width: 100%;
+        max-width: 440px;
+        background: rgba(255, 255, 255, .95);
+        padding: 25px 20px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+        box-sizing: border-box;
+    }
+
+    .countdown h2 {
+        font-size: clamp(1.8rem, 5vw, 2.6rem);
+        color: #222;
+        margin: 0 0 10px 0;
+    }
+
+    #contador {
+        font-size: clamp(2.5rem, 8vw, 4.2rem); /* Letras del contador un poco más grandes */
+        font-weight: bold;
+        color: white;
+        letter-spacing: 1px;
+    }
+
+    /* Elementos informativos generales */
+    .info-item {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto 30px auto;
+        text-align: center;
+    }
+
+    .foto-lugar {
+        width: 100%;
+        max-width: 450px;
+        border-radius: 20px;
+        display: block;
+        margin: 0 auto 20px auto;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, .25);
+    }
+
+    /* Enlaces y Botones (MÁS GRANDES Y AMPLIOS) */
+    .link-mapa {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 18px 25px; /* Más cómodo para pulsar con el dedo */
+        border-radius: 50px;
+        text-decoration: none;
+        color: #fff;
+        background: #C73850;
+        font-weight: bold;
+        font-size: clamp(1.4rem, 4.5vw, 1.8rem); /* Ajustado para que el texto largo de la dirección quepa bien */
+        transition: transform .2s ease;
+        box-shadow: 0 6px 20px rgba(199, 56, 80, 0.4);
+    }
+
+    .descripcion {
+        max-width: 500px;
+        margin: 40px auto;
+        text-align: center;
+        font-size: clamp(2.2rem, 7vw, 3.5rem); /* Texto de invitación más grande y elegante */
+        line-height: 1.3;
+        color: #ffffff;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-confirmar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        text-decoration: none;
+        color: #fff;
+        background: #C73850;
+        padding: 20px 40px; /* Botón de WhatsApp más imponente */
+        border-radius: 60px;
+        font-size: clamp(1.6rem, 5vw, 2.2rem); /* Letras de confirmación más llamativas */
+        font-weight: bold;
+        margin: 20px auto;
+        transition: transform .2s ease;
+        box-shadow: 0 6px 22px rgba(199, 56, 80, 0.4);
+    }
+
+    .link-mapa:hover,
+    .btn-confirmar:hover {
+        transform: scale(1.04);
+    }
+
+    .icono-maps,
+    .icono-wa {
+        width: clamp(35px, 7vw, 48px); /* Iconos de botones escalados hacia arriba */
+        height: auto;
+    }
+
+    /* Pantallas móviles chicas */
+    @media(max-width: 480px) {
+        .hero {
+            padding: 15px 10px;
+        }
+        .link-mapa, .btn-confirmar {
+            width: 95%; /* Ocupa casi todo el ancho para fácil lectura */
+            box-sizing: border-box;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+   <section class="hero">
+    <div class="contenedor-hero-vertical">
+        
+     <div class="encabezado-seccion">
+    
+    <div class="titulo-con-icono">
+        <h1 class="titulo-festejo">Mis 18 años</h1>
+        <img src="recursos/2balloon.svg" class="svg-al-lado" alt="Icono Fiesta">
+    </div>
+    
+
+</div>
+
+        <div class="tarjeta-pequena">
+            
+            <div class="foto">
+                <img src="recursos/19.jpg" alt="Invitación">
+            </div>
+            
+            <div class="calendario-interno">
+                <h2 class="mes">20/Noviembre</h2>
+                <img src="recursos/cal.png" class="svg-calendario" alt="Calendario">
+            </div>
+
+        </div>
+      <div id="contador"></div>
+    </div>
+	
+</section>
+
+
+    <section class="tercera-seccion">
+        <div class="info-item">
+            <img src="recursos/frida.png" alt="Lugar del evento" class="foto-lugar">
+            <a href="https://maps.app.goo.gl/Kx8Z775cM1YuycBL9" target="_blank" class="link-mapa">
+                <img src="recursos/maps.svg" alt="Mapa" class="icono-maps">
+                <span>Av. Par Vial Atlacomulco, 62560 Jiutepec, Mor.</span>
+            </a>
+        </div>
+
+        <a href="https://wa.me/5216633191218?text=Hola,%20confirmo%20mi%20asistencia%20al%20evento%20(:" target="_blank" class="btn-confirmar">
+            <img src="recursos/wa.svg" alt="WhatsApp" class="icono-wa">
+            <span>Confirmar asistencia</span>
+        </a>
+    </section>
+
+    <section class="cuarta-seccion">
+        </section>
+
+    <audio id="musica" loop>
+        <source src="recursos/marryMusic.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const destino = new Date("November 20, 2026 18:00:00").getTime();
+
+        function actualizar() {
+            const ahora = new Date().getTime();
+            const diferencia = destino - ahora;
+
+            if (diferencia <= 0) {
+                document.getElementById("contador").innerHTML = "¡Ha llegado el gran día!";
+                clearInterval(intervalo);
+                return;
+            }
+
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            document.getElementById("contador").innerHTML =
+                `${dias}dias ${horas}hr ${minutos}min ${segundos}seg`;
+        }
+
+        actualizar();
+        const intervalo = setInterval(actualizar, 1000);
+    </script>
+
+</body>
+</html>
