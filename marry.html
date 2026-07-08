@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Invitación</title>
+	 <link href="css/bootstrap.min.css" rel="stylesheet">
+   
+
+    <style>
+  body {
+    margin: 0;
+    padding: 0;
+     background: url("recursos/5pareja.png") center/cover no-repeat fixed;
+
+    background-position: center;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    font-family: 'TangerineBold', serif;
+    color: black;
+}
+
+html, body {
+    height: 100%;
+}
+
+/* --- NUEVOS ESTILOS PARA EL TÍTULO CON SVG RESPONSIVO --- */
+        .contenedor-titulo-boda {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(8px, 2vw, 15px); /* Espacio adaptable entre texto y SVG */
+            margin: 10px 0;
+        }
+
+        .svg-boda {
+            width: clamp(35px, 7vw, 55px); /* Se hace más chico en móvil y crece en tablet/PC */
+            height: auto;
+            display: block;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.15));
+        }
+
+
+
+#btnMusica{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* espacio entre iconos */
+
+    background: transparent;
+    border: 2px solid black; /* contorno blanco */
+    border-radius: 50px;     /* bordes redondeados */
+    padding: 12px 20px;
+	cursor: pointer;
+
+}
+
+.icono-musica{
+    width: 50px;
+    height: auto;
+    display: block;
+}
+
+		.link-mapa{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    text-decoration: none;
+    color: black;
+}
+
+.icono-maps{
+    width: 1.8em;
+    height: 1.8em;
+}
+
+.btn-confirmar{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    text-decoration: none;
+    color: white;
+
+    padding: 12px 24px;
+    border-radius: 50px;
+    background: #ff4d6d; /* tu color actual */
+}
+
+.icono-wa{
+    width: 40px;
+    height: 40px;
+}
+
+/* contenedor fila */
+.info-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 600px;
+
+    margin: 15px auto;
+}
+
+/* cada mitad */
+.half{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* divisor vertical elegante */
+.divider{
+    width: 2px;
+    height: 80px;
+    background: black;
+    opacity: 0.7;
+    border-radius: 2px;
+    margin: 0 10px;
+}
+
+		.img-itinerario{
+    width: 100%;
+    max-width: 600px;   /* tamaño máximo en PC */
+    height: auto;       /* mantiene proporción */
+    display: block;
+    margin: 0 auto;     /* centra la imagen */
+}
+
+.contenedor {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    gap: 10px; /* mejor que space-between */
+}
+
+.foto-lugar {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: #ff4d6d;
+            color: black;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+		
+
+/* Tablets */
+@media (min-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    button {
+        font-size: 1.2rem;
+        padding: 12px 25px;
+    }
+}
+
+
+
+/* Computadoras */
+@media (min-width: 1024px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    .contenedor {
+        max-width: 800px;
+        margin: auto;
+    }
+}
+
+.descripcion {
+    max-width: 500px;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.countdown {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.icono {
+    margin: 10px 0;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin: 5px 0;
+    text-align: center;
+}
+
+.icono-svg {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+
+/* textos */
+.info-item h2,
+.info-item h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.info-item p {
+    margin: 0;
+    font-size: 1rem;
+    color: black;
+}
+
+/* link ubicación */
+.info-item a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+	 font-size: 4rem;
+}
+
+.info-item a:hover {
+    text-decoration: underline;
+}
+
+.seccion-itinerario {
+    text-align: center;
+    margin: 30px 0;
+    padding: 10px;
+}
+
+.seccion-itinerario h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.img-itinerario {
+    width: 100%;
+    max-width: 600px;  /* evita que se haga enorme en PC */
+    height: auto;
+    border-radius: 10px;
+}
+
+@font-face {
+    font-family: 'TangerineBold';
+    src: url('recursos/Tangerine-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.contenedor h1 {
+    font-size: 4.6rem;
+}
+
+.contenedor h2 {
+    font-size: 3.6rem;
+}
+
+.contenedor h3 {
+    font-size: 3.6rem;
+}
+
+.contenedor p {
+    font-size: 3.2rem;
+}
+
+.contenedor button {
+    font-size: 2rem;
+}
+
+		@media (max-width: 768px) {
+
+    .contenedor {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2, h3 {
+        font-size: 1.4rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+
+    .info-item a {
+        font-size: 2.8rem;
+    }
+	
+	.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin: 5px 0;
+    text-align: center;
+}
+
+    .icono-svg {
+        width: 50px;
+        height: 50px;
+    }
+
+    .countdown {
+        font-size: 4rem;
+    }
+	
+}
+
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <div class="contenedor">
+
+    <div class="contenedor-titulo-boda">
+            <h2>Nuestra boda</h2>
+            <img src="recursos/heart.svg" class="svg-boda" alt="Icono Boda">
+        </div>
+    <h1>Alejandra & Marcos</h1>
+  
+
+
+    <!-- CUENTA REGRESIVA -->
+<div class="info-item countdown">
+    <div>
+        <div id="countdown" class="countdown"></div>
+    </div>
+</div>
+
+<!-- FECHA + HORA -->
+<div class="info-row">
+
+    <!-- FECHA -->
+    <div class="info-item half">
+        <img src="recursos/date.svg" class="icono-svg">
+        <div>
+            <h2>30/Julio/2026</h2>
+        </div>
+    </div>
+
+    <!-- DIVISOR -->
+    <div class="divider"></div>
+
+    <!-- HORA -->
+    <div class="info-item half">
+        <img src="recursos/time.svg" class="icono-svg">
+        <div>
+            <p>7pm</p>
+        </div>
+    </div>
+
+</div>
+
+
+		<button id="btnMusica" type="button">
+			<img src="recursos/2nota.svg" alt="" class="icono-musica">
+		    Reproducir Musica
+        
+            <img src="recursos/2nota.svg" alt="" class="icono-musica">
+        </button>
+
+		
+
+    <!-- UBICACIÓN -->
+<div class="info-item">
+
+    <img src="recursos/sumiya.png" class="foto-lugar">
+
+    <a href="https://maps.app.goo.gl/54nLaTaRcMG64sTn6"
+       target="_blank"
+       class="link-mapa">
+
+        <img src="recursos/maps.svg" alt="" class="icono-maps">
+        <span>Ver Mapa</span>
+
+    </a>
+
+</div>
+
+    <br>
+
+		  <p class="descripcion"> 
+	        Nos encantaría que nos acompañes en este día tan especial.  
+         </p>
+
+<a
+    href="https://wa.me/5216633191218?text=Hola,%20confirmo%20mi%20asistencia%20al%20evento%20(:"
+    target="_blank"
+    class="btn-confirmar">
+
+    <button type="button">
+        <img src="recursos/wa.svg" alt="" class="icono-wa">
+        Confirmar asistencia por WhatsApp
+    </button>
+
+</a>
+
+<!-- ITINERARIO -->
+<div class="seccion-itinerario">
+
+    <h2>Itinerario</h2>
+
+    <img src="recursos/4itinerario.png" alt="Itinerario del evento" class="img-itinerario">
+
+</div>
+
+<audio id="musica" loop>
+    <source src="recursos/marryMusic.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+const eventDate = new Date("July 30, 2026 19:00:00").getTime();
+
+const countdown = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = eventDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML =
+        ` ${days}dias ${hours}hr ${minutes}min ${seconds}seg`;
+
+    if (distance < 0) {
+        clearInterval(countdown);
+        document.getElementById("countdown").innerHTML = "🎉 ¡Hoy es el evento!";
+    }
+}, 1000);
+
+const musica = document.getElementById("musica");
+const btnMusica = document.getElementById("btnMusica");
+
+btnMusica.addEventListener("click", () => {
+    musica.play();
+
+    btnMusica.innerHTML = "🎵 Reproduciendo...";
+    btnMusica.disabled = true;
+});
+
+
+// Animación del marco dinámico interactivo
+const esquinasSvg = document.querySelectorAll('.esquina-svg');
+
+// En móviles: Cambia de color sutilmente al deslizar hacia abajo
+window.addEventListener('scroll', () => {
+    const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollMax <= 0) return;
+    
+    const porcentaje = window.scrollY / scrollMax;
+    
+    esquinasSvg.forEach(esquina => {
+        // Hace una transición suave entre rosa pastel y un morado luminoso (#e0aaff)
+        if (porcentaje > 0.3) {
+            esquina.style.fill = '#e0aaff';
+            esquina.style.transform = esquina.classList.contains('m-top-right') ? 'scaleX(-1) scale(1.05)' : 
+                                      esquina.classList.contains('m-bottom-left') ? 'scaleY(-1) scale(1.05)' :
+                                      esquina.classList.contains('m-bottom-right') ? 'scale(-1) scale(1.05)' : 'scale(1.05)';
+        } else {
+            esquina.style.fill = '#ffd6e0';
+            esquina.style.transform = esquina.classList.contains('m-top-right') ? 'scaleX(-1)' : 
+                                      esquina.classList.contains('m-bottom-left') ? 'scaleY(-1)' :
+                                      esquina.classList.contains('m-bottom-right') ? 'scale(-1)' : 'none';
+        }
+    });
+});
+</script>
+
+ <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
