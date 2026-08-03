@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Estadísticas</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+
+<h1>
+Confirmaciones
+</h1>
+
+
+<h2 id="total">
+Cargando...
+</h2>
+
+
+<canvas id="grafica"></canvas>
+
+
+
+<script>
+
+
+const URL="https://script.google.com/macros/s/AKfycbyVsIhOPEuUqQmZnUicuJJ3fCIoQLR7M3ihtAqnuNTOjddHrN5eLRtw3qcxOP7NE8kt/exec";
+
+
+async function cargarDatos(){
+
+
+    const respuesta = await fetch(URL);
+
+
+    const datos = await respuesta.json();
+
+
+
+    let nombres=[];
+
+    let asistentes=[];
+
+    let total=0;
+
+
+
+    datos.forEach(persona=>{
+
+
+        nombres.push(persona.nombre);
+
+
+        asistentes.push(persona.asistentes);
+
+
+        total += persona.asistentes;
+
+
+    });
+
+
+
+    document.getElementById("total").innerHTML =
+    "Total asistentes: " + total;
+
+
+
+    crearGrafica(nombres, asistentes);
+
+
+
+}
+
+
+
+
+function crearGrafica(nombres, asistentes){
+
+
+const ctx=document
+.getElementById("grafica");
+
+
+new Chart(ctx,{
+
+
+type:"bar",
+
+
+data:{
+
+
+labels:nombres,
+
+
+datasets:[{
+
+label:"Número de asistentes",
+
+data:asistentes,
+
+backgroundColor:"#D4A3B5"
+
+}]
+
+
+},
+
+
+options:{
+
+
+responsive:true,
+
+
+plugins:{
+
+
+legend:{
+
+display:true
+
+}
+
+
+}
+
+
+}
+
+
+});
+
+
+}
+
+
+
+
+cargarDatos();
+
+
+</script>
+
+
+</body>
+
+</html>
