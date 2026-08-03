@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Prueba</title>
+</head>
+
+<body>
+
+<input id="nombre" placeholder="Nombre"><br><br>
+
+<input id="celular" placeholder="Celular"><br><br>
+
+<input id="asistentes" type="number" placeholder="Asistentes"><br><br>
+
+<button onclick="registrar()">
+Registrar
+</button>
+
+<script>
+
+const URL="https://script.google.com/macros/s/AKfycbyVsIhOPEuUqQmZnUicuJJ3fCIoQLR7M3ihtAqnuNTOjddHrN5eLRtw3qcxOP7NE8kt/exec";
+
+async function registrar(){
+
+    const datos={
+        nombre:document.getElementById("nombre").value,
+        celular:document.getElementById("celular").value,
+        asistentes:document.getElementById("asistentes").value
+    };
+
+    const respuesta=await fetch(URL,{
+        method:"POST",
+        body:JSON.stringify(datos)
+    });
+
+    const json=await respuesta.json();
+
+    alert(json.mensaje);
+
+}
+
+</script>
+
+</body>
+</html>
