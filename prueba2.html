@@ -5,9 +5,9 @@
 
 <meta charset="UTF-8">
 
-<title>Estadísticas</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Estadísticas</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -48,7 +48,7 @@ h2{
 }
 
 
-.contenedor-grafica{
+.contenedor{
 
     width:100%;
 
@@ -67,14 +67,13 @@ h2{
 }
 
 
-canvas{
+.grafica-contenedor{
 
-    width:100% !important;
+    position:relative;
 
-    height:auto !important;
+    height:500px;
 
 }
-
 
 
 @media(max-width:600px){
@@ -86,14 +85,20 @@ canvas{
     }
 
 
-    .contenedor-grafica{
+    .contenedor{
 
         padding:10px;
 
     }
 
-}
 
+    .grafica-contenedor{
+
+        height:600px;
+
+    }
+
+}
 
 
 </style>
@@ -115,9 +120,13 @@ Cargando...
 </h2>
 
 
-<div class="contenedor-grafica">
+<div class="contenedor">
 
-<canvas id="grafica"></canvas>
+    <div class="grafica-contenedor">
+
+        <canvas id="grafica"></canvas>
+
+    </div>
 
 </div>
 
@@ -175,7 +184,6 @@ async function cargarDatos(){
     crearGrafica(nombres, asistentes);
 
 
-
 }
 
 
@@ -183,105 +191,146 @@ async function cargarDatos(){
 
 function crearGrafica(nombres, asistentes){
 
-    const ctx = document.getElementById("grafica");
+
+    const ctx=document.getElementById("grafica");
 
 
-    new Chart(ctx, {
 
-        type: "bar",
+    new Chart(ctx,{
 
-        data: {
 
-            labels: nombres,
+        type:"bar",
 
-            datasets: [{
 
-                label: "Número de asistentes",
+        data:{
 
-                data: asistentes,
 
-                backgroundColor: "#D4A3B5"
+            labels:nombres,
+
+
+            datasets:[{
+
+
+                label:"Número de asistentes",
+
+
+                data:asistentes,
+
+
+                backgroundColor:"#D4A3B5"
+
 
             }]
+
 
         },
 
 
-        options: {
-
-            indexAxis: "y",
-
-            responsive: true,
-
-            maintainAspectRatio: false,
+        options:{
 
 
-            scales: {
+            indexAxis:"y",
 
-                x: {
 
-                    beginAtZero: true,
+            responsive:true,
 
-                    ticks: {
 
-                        stepSize: 1
+            maintainAspectRatio:false,
+
+
+
+            scales:{
+
+
+                x:{
+
+
+                    beginAtZero:true,
+
+
+                    ticks:{
+
+
+                        stepSize:1
+
 
                     }
 
+
                 }
+
 
             },
 
 
-            plugins: {
 
-                legend: {
+            plugins:{
 
-                    display: true
+
+                legend:{
+
+
+                    display:true
+
 
                 },
 
 
-                tooltip: {
+                tooltip:{
 
-                    callbacks: {
 
-                        title: function(context){
+                    callbacks:{
 
-                            let index = context[0].dataIndex;
+
+                        title:function(context){
+
+
+                            let index=context[0].dataIndex;
+
 
                             return datosGlobal[index].nombre;
 
+
                         },
 
 
-                        afterTitle: function(context){
+                        afterTitle:function(context){
 
-                            let index = context[0].dataIndex;
+
+                            let index=context[0].dataIndex;
+
 
                             return "Celular: " + datosGlobal[index].celular;
 
+
                         },
 
 
-                        label: function(context){
+                        label:function(context){
+
 
                             return "Asistentes: " + context.raw;
 
+
                         }
+
 
                     }
 
+
                 }
+
 
             }
 
+
         }
+
 
     });
 
-}
 
+}
 
 
 
