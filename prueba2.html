@@ -31,8 +31,9 @@ Cargando...
 
 <script>
 
+const URL="https://script.google.com/macros/s/AKfycbyVsIhOPEuUqQmZnUicuJJ3fCIoQLR7M3ihtAqnuNTOjddHrN5eLRtw3qcxOP7NE8kt/exec";
 
-const URL="https://script.google.com/macros/s/AKfycbznvzCYb8UKBHIpKk7vl0u5USMbaNCfG-SIQP6-YcZ4zpctK60wlFDK575Nn0sbxSNr/exec";
+let datosGlobal=[];
 
 
 async function cargarDatos(){
@@ -41,7 +42,7 @@ async function cargarDatos(){
     const respuesta = await fetch(URL);
 
 
-    const datos = await respuesta.json();
+    datosGlobal = await respuesta.json();
 
 
 
@@ -53,16 +54,16 @@ async function cargarDatos(){
 
 
 
-    datos.forEach(persona=>{
+    datosGlobal.forEach(persona=>{
 
 
         nombres.push(persona.nombre);
 
 
-        asistentes.push(persona.asistentes);
+        asistentes.push(Number(persona.asistentes));
 
 
-        total += persona.asistentes;
+        total += Number(persona.asistentes);
 
 
     });
@@ -88,6 +89,7 @@ function crearGrafica(nombres, asistentes){
 
 const ctx=document
 .getElementById("grafica");
+
 
 
 new Chart(ctx,{
@@ -122,14 +124,87 @@ options:{
 responsive:true,
 
 
+scales:{
+
+
+y:{
+
+
+beginAtZero:true,
+
+
+ticks:{
+
+
+stepSize:1
+
+
+}
+
+
+}
+
+
+},
+
+
 plugins:{
 
 
 legend:{
 
+
 display:true
 
+
+},
+
+
+
+tooltip:{
+
+
+callbacks:{
+
+
+title:function(context){
+
+
+let index=context[0].dataIndex;
+
+
+return datosGlobal[index].nombre;
+
+
+},
+
+
+afterTitle:function(context){
+
+
+let index=context[0].dataIndex;
+
+
+return "Celular: " + datosGlobal[index].celular;
+
+
+},
+
+
+label:function(context){
+
+
+return "Asistentes: " + context.raw;
+
+
 }
+
+
+}
+
+
+}
+
 
 
 }
