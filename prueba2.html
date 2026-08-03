@@ -7,7 +7,97 @@
 
 <title>Estadísticas</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<style>
+
+body{
+
+    margin:0;
+    padding:20px;
+
+    font-family:Arial, sans-serif;
+
+    background:#f8f9fa;
+
+}
+
+
+h1{
+
+    text-align:center;
+
+    color:#C73850;
+
+    font-size:clamp(1.8rem,5vw,3rem);
+
+}
+
+
+h2{
+
+    text-align:center;
+
+    color:#333;
+
+    font-size:clamp(1.3rem,4vw,2rem);
+
+}
+
+
+.contenedor-grafica{
+
+    width:100%;
+
+    max-width:1000px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:20px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+
+}
+
+
+canvas{
+
+    width:100% !important;
+
+    height:auto !important;
+
+}
+
+
+
+@media(max-width:600px){
+
+    body{
+
+        padding:10px;
+
+    }
+
+
+    .contenedor-grafica{
+
+        padding:10px;
+
+    }
+
+}
+
+
+
+</style>
+
 
 </head>
 
@@ -25,15 +115,22 @@ Cargando...
 </h2>
 
 
+<div class="contenedor-grafica">
+
 <canvas id="grafica"></canvas>
+
+</div>
 
 
 
 <script>
 
+
 const URL="https://script.google.com/macros/s/AKfycbznvzCYb8UKBHIpKk7vl0u5USMbaNCfG-SIQP6-YcZ4zpctK60wlFDK575Nn0sbxSNr/exec";
 
+
 let datosGlobal=[];
+
 
 
 async function cargarDatos(){
@@ -86,84 +183,164 @@ async function cargarDatos(){
 
 function crearGrafica(nombres, asistentes){
 
-    const ctx=document.getElementById("grafica");
+
+const ctx=document.getElementById("grafica");
 
 
-    new Chart(ctx,{
 
-        type:"bar",
+new Chart(ctx,{
 
-        data:{
-
-            labels:nombres,
-
-            datasets:[{
-
-                label:"Número de asistentes",
-
-                data:asistentes,
-
-                backgroundColor:"#D4A3B5"
-
-            }]
-
-        },
+type:"bar",
 
 
-        options:{
-
-            indexAxis:"y",
-
-            responsive:true,
+data:{
 
 
-            scales:{
-
-                x:{
-
-                    beginAtZero:true,
-
-                    ticks:{
-
-                        stepSize:1
-
-                    }
-
-                }
-
-            },
+labels:nombres,
 
 
-            plugins:{
-
-                legend:{
-
-                    display:true
-
-                },
+datasets:[{
 
 
-                tooltip:{
+label:"Número de asistentes",
 
-                    callbacks:{
+data:asistentes,
 
-                        label:function(context){
-
-                            return "Asistentes: " + context.raw;
-
-                        }
-
-                    }
-
-                }
-
-            }
+backgroundColor:"#D4A3B5"
 
 
-        }
+}]
 
 
-    });
+},
+
+
+options:{
+
+
+indexAxis:"y",
+
+
+responsive:true,
+
+
+maintainAspectRatio:false,
+
+
+layout:{
+
+padding:10
+
+},
+
+
+scales:{
+
+
+x:{
+
+
+beginAtZero:true,
+
+
+ticks:{
+
+stepSize:1
+
+}
+
+
+}
+
+
+},
+
+
+y:{
+
+
+ticks:{
+
+font:{
+
+size:12
+
+}
+
+}
+
+}
+
+
+},
+
+
+plugins:{
+
+
+legend:{
+
+
+display:true
+
+},
+
+
+
+tooltip:{
+
+
+callbacks:{
+
+
+title:function(context){
+
+
+let index=context[0].dataIndex;
+
+
+return datosGlobal[index].nombre;
+
+
+},
+
+
+afterTitle:function(context){
+
+
+let index=context[0].dataIndex;
+
+
+return "Celular: " + datosGlobal[index].celular;
+
+
+},
+
+
+label:function(context){
+
+
+return "Asistentes: " + context.raw;
+
+
+}
+
+
+}
+
+
+}
+
+
+
+}
+
+
+}
+
+
+});
+
 
 }
 
