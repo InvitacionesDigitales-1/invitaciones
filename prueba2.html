@@ -100,144 +100,102 @@ async function cargarDatos(){
 
 function crearGrafica(nombres, asistentes){
 
-
-    const ctx=document.getElementById("grafica");
-
+    const ctx = document.getElementById("grafica");
 
 
-    new Chart(ctx,{
+    new Chart(ctx, {
 
+        type: "bar",
 
-        type:"bar",
+        data: {
 
+            labels: nombres,
 
-        data:{
+            datasets: [{
 
+                label: "Número de asistentes",
 
-            labels:nombres,
+                data: asistentes,
 
-
-            datasets:[{
-
-
-                label:"Número de asistentes",
-
-
-                data:asistentes,
-
-
-                backgroundColor:"#D4A3B5"
-
+                backgroundColor: "#D4A3B5"
 
             }]
-
 
         },
 
 
-        options:{
+        options: {
+
+            indexAxis: "y",
+
+            responsive: true,
+
+            maintainAspectRatio: false,
 
 
-            indexAxis:"y",
+            scales: {
 
+                x: {
 
-            responsive:true,
+                    beginAtZero: true,
 
+                    ticks: {
 
-            maintainAspectRatio:false,
-
-
-
-            scales:{
-
-
-                x:{
-
-
-                    beginAtZero:true,
-
-
-                    ticks:{
-
-
-                        stepSize:1
-
+                        stepSize: 1
 
                     }
 
-
                 }
-
 
             },
 
 
+            plugins: {
 
-            plugins:{
+                legend: {
 
-
-                legend:{
-
-
-                    display:true
-
+                    display: true
 
                 },
 
 
-                tooltip:{
+                tooltip: {
 
+                    callbacks: {
 
-                    callbacks:{
+                        title: function(context){
 
-
-                        title:function(context){
-
-
-                            let index=context[0].dataIndex;
-
+                            let index = context[0].dataIndex;
 
                             return datosGlobal[index].nombre;
 
-
                         },
 
 
-                        afterTitle:function(context){
+                        afterTitle: function(context){
 
-
-                            let index=context[0].dataIndex;
-
+                            let index = context[0].dataIndex;
 
                             return "Celular: " + datosGlobal[index].celular;
 
-
                         },
 
 
-                        label:function(context){
-
+                        label: function(context){
 
                             return "Asistentes: " + context.raw;
 
-
                         }
-
 
                     }
 
-
                 }
-
 
             }
 
-
         }
 
-
     });
-
 
 }
 
