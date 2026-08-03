@@ -677,6 +677,78 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+
+	const URL="https://script.google.com/macros/s/AKfycbyVsIhOPEuUqQmZnUicuJJ3fCIoQLR7M3ihtAqnuNTOjddHrN5eLRtw3qcxOP7NE8kt/exec";
+
+async function registrar(){
+
+    const boton = document.getElementById("btnRegistrar");
+
+    boton.disabled = true;
+    boton.innerHTML = "Registrando...";
+
+
+    const datos={
+        nombre:document.getElementById("nombre").value,
+        celular:document.getElementById("celular").value,
+        asistentes:document.getElementById("asistentes").value
+    };
+
+    if(!datos.nombre || !datos.celular || !datos.asistentes){
+
+    alert("Completa todos los campos");
+    boton.disabled=false;
+    boton.innerHTML="Registrar";
+    return;
+
+}
+
+    try {
+
+        const respuesta = await fetch(URL,{
+            method:"POST",
+            body:JSON.stringify(datos)
+        });
+
+
+        const json = await respuesta.json();
+
+
+        alert(json.mensaje);
+
+
+        if(json.ok){
+
+            boton.innerHTML="Confirmado ✓";
+
+            document.getElementById("nombre").value="";
+            document.getElementById("celular").value="";
+            document.getElementById("asistentes").value="";
+
+            // permanece bloqueado
+            boton.disabled=true;
+
+        }else{
+
+            // Si hubo error (ejemplo celular duplicado)
+            boton.disabled=false;
+            boton.innerHTML="Registrar";
+
+        }
+
+
+    } catch(error){
+
+        alert("Error al registrar");
+
+        console.log(error);
+
+        boton.disabled=false;
+        boton.innerHTML="Registrar";
+
+    }
+
+}
 </script>
 
  <script src="js/bootstrap.bundle.min.js"></script>
