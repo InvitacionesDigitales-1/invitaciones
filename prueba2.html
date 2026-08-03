@@ -183,164 +183,102 @@ async function cargarDatos(){
 
 function crearGrafica(nombres, asistentes){
 
+    const ctx = document.getElementById("grafica");
 
-const ctx=document.getElementById("grafica");
 
+    new Chart(ctx, {
 
+        type: "bar",
 
-new Chart(ctx,{
+        data: {
 
-type:"bar",
+            labels: nombres,
 
+            datasets: [{
 
-data:{
+                label: "Número de asistentes",
 
+                data: asistentes,
 
-labels:nombres,
+                backgroundColor: "#D4A3B5"
 
+            }]
 
-datasets:[{
+        },
 
 
-label:"Número de asistentes",
+        options: {
 
-data:asistentes,
+            indexAxis: "y",
 
-backgroundColor:"#D4A3B5"
+            responsive: true,
 
+            maintainAspectRatio: false,
 
-}]
 
+            scales: {
 
-},
+                x: {
 
+                    beginAtZero: true,
 
-options:{
+                    ticks: {
 
+                        stepSize: 1
 
-indexAxis:"y",
+                    }
 
+                }
 
-responsive:true,
+            },
 
 
-maintainAspectRatio:false,
+            plugins: {
 
+                legend: {
 
-layout:{
+                    display: true
 
-padding:10
+                },
 
-},
 
+                tooltip: {
 
-scales:{
+                    callbacks: {
 
+                        title: function(context){
 
-x:{
+                            let index = context[0].dataIndex;
 
+                            return datosGlobal[index].nombre;
 
-beginAtZero:true,
+                        },
 
 
-ticks:{
+                        afterTitle: function(context){
 
-stepSize:1
+                            let index = context[0].dataIndex;
 
-}
+                            return "Celular: " + datosGlobal[index].celular;
 
+                        },
 
-}
 
+                        label: function(context){
 
-},
+                            return "Asistentes: " + context.raw;
 
+                        }
 
-y:{
+                    }
 
+                }
 
-ticks:{
+            }
 
-font:{
+        }
 
-size:12
-
-}
-
-}
-
-}
-
-
-},
-
-
-plugins:{
-
-
-legend:{
-
-
-display:true
-
-},
-
-
-
-tooltip:{
-
-
-callbacks:{
-
-
-title:function(context){
-
-
-let index=context[0].dataIndex;
-
-
-return datosGlobal[index].nombre;
-
-
-},
-
-
-afterTitle:function(context){
-
-
-let index=context[0].dataIndex;
-
-
-return "Celular: " + datosGlobal[index].celular;
-
-
-},
-
-
-label:function(context){
-
-
-return "Asistentes: " + context.raw;
-
-
-}
-
-
-}
-
-
-}
-
-
-
-}
-
-
-}
-
-
-});
-
+    });
 
 }
 
