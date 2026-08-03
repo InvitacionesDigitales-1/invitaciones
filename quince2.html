@@ -126,6 +126,88 @@ html, body {
     background: #ff4d6d; /* tu color actual */
 }
 
+		.formulario-contenedor{
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:40px 20px;
+
+    box-sizing:border-box;
+
+}
+
+
+.formulario-contenedor h2{
+
+    color:white;
+
+    text-align:center;
+
+    font-size:clamp(2rem,6vw,3rem);
+
+    text-shadow:2px 2px 5px #000;
+
+}
+
+
+.formulario-confirmacion{
+
+    width:100%;
+
+    max-width:450px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+
+.formulario-confirmacion input{
+
+    width:100%;
+
+    padding:15px;
+
+    box-sizing:border-box;
+
+    border-radius:12px;
+
+    border:none;
+
+    font-size:18px;
+
+}
+
+
+.formulario-confirmacion button{
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:#C73850;
+
+    color:white;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+}
+
 .icono-wa{
     width: 40px;
     height: 40px;
@@ -509,6 +591,26 @@ html, body {
     <h2>Itinerario</h2>
 
     <img src="recursos/15.png" alt="Itinerario del evento" class="img-itinerario">
+
+</div>
+
+<div class="formulario-contenedor">
+
+    <h2>Confirma tu asistencia</h2>
+
+    <div class="formulario-confirmacion">
+
+        <input id="nombre" type="text" placeholder="Nombre completo">
+
+        <input id="celular" type="tel" placeholder="Celular">
+
+        <input id="asistentes" type="number" min="1" placeholder="Número de asistentes">
+
+        <button id="btnRegistrar" onclick="registrar()">
+            Confirmar asistencia
+        </button>
+
+    </div>
 
 </div>
 
