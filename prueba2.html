@@ -232,21 +232,24 @@ function crearGrafica(nombres, asistentes){
             maintainAspectRatio: false,
 
 
-            scales: {
-
-                x: {
-
-                    beginAtZero: true,
-
-                    ticks: {
-
-                        stepSize: 1
-
-                    }
-
+           scales: {
+        x: {
+            beginAtZero: true,
+            ticks: {
+                stepSize: 1,
+                font: {
+                    weight: "bold"
                 }
-
-            },
+            }
+        },
+        y: {
+            ticks: {
+                font: {
+                    weight: "bold"
+                }
+            }
+        }
+    },
 
 
             plugins: {
