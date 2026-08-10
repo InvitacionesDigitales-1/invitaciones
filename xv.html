@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
     <title>Invitación</title>
 
    <style>
@@ -485,6 +486,45 @@
             box-sizing: border-box;
         }
     }
+
+	   /* Seccion de Carrusel */
+.seccion-carrusel {
+    background: #F7F0F0;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo-carrusel {
+    color: #C73850;
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Contenedor del carrusel */
+#carruselQuince {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+}
+
+/* Ajuste de imágenes para responsividad */
+.img-carrusel {
+    height: 500px;
+    object-fit: cover; /* Evita que las imágenes se deformen o estiren */
+    object-position: center;
+}
+
+/* Adaptación para pantallas celulares */
+@media(max-width: 768px) {
+    .img-carrusel {
+        height: 380px; /* Reduce la altura en móviles */
+    }
+}
 </style>
 </head>
 
@@ -586,6 +626,55 @@
     <section class="cuarta-seccion">
        <img src="recursos/9itinerario.png" alt="Itinerario">
     </section>
+
+	<!-- Sección del Carrusel de Fotos -->
+<section class="seccion-carrusel">
+  <div class="container">
+    <h2 class="titulo-carrusel">Galería de Fotos</h2>
+    
+    <div id="carruselQuince" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      
+      <!-- Indicadores abajo (rayitas/puntos) -->
+<div class="carousel-indicators">
+  <button type="button" data-bs-target="#carruselQuince" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Foto 1"></button>
+  <button type="button" data-bs-target="#carruselQuince" data-bs-slide-to="1" aria-label="Foto 2"></button>
+  <button type="button" data-bs-target="#carruselQuince" data-bs-slide-to="2" aria-label="Foto 3"></button>
+  <button type="button" data-bs-target="#carruselQuince" data-bs-slide-to="3" aria-label="Foto 4"></button>
+  <button type="button" data-bs-target="#carruselQuince" data-bs-slide-to="4" aria-label="Foto 5"></button> <!-- ¡Asegúrate de tener este quinto! -->
+</div>
+
+      <!-- Diapositivas / Fotos -->
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="1000">
+          <img src="recursos/misquince2.png" class="d-block w-100 img-carrusel" alt="Momento especial 1">
+        </div>
+        <div class="carousel-item" data-bs-interval="1000">
+          <img src="recursos/quinces0.jpg" class="d-block w-100 img-carrusel" alt="Momento especial 2">
+        </div>
+        <div class="carousel-item" data-bs-interval="1000">
+          <img src="recursos/quinces1.jpg" class="d-block w-100 img-carrusel" alt="Momento especial 3">
+        </div>
+		<div class="carousel-item" data-bs-interval="1000">
+          <img src="recursos/quinces3.jpg" class="d-block w-100 img-carrusel" alt="Momento especial 4">
+        </div>
+		<div class="carousel-item" data-bs-interval="1000">
+          <img src="recursos/quinces2.jpg" class="d-block w-100 img-carrusel" alt="Momento especial 5">
+        </div>
+      </div>
+
+      <!-- Botones de navegación (Anterior / Siguiente) -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carruselQuince" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carruselQuince" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+      
+    </div>
+  </div>
+</section>
 	
 	<section class="quinta-seccion">
 
@@ -721,6 +810,6 @@ async function registrar(){
 }
 
     </script>
-
+<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
