@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Bautizo - Invitación</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Estilos del Botón Flotante Parpadeante */
+    .btn-pases-flotante {
+      position: fixed;
+      bottom: 25px;
+      left: 20px;
+      z-index: 1050;
+      background-color: #c5a059;
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 50px;
+      padding: 12px 22px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: parpadeoSuave 1.8s infinite;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-pases-flotante:hover {
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    /* Animación de parpadeo y brillo */
+    @keyframes parpadeoSuave {
+      0% {
+        box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 0 0 14px rgba(197, 160, 89, 0);
+        transform: scale(1.03);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(197, 160, 89, 0);
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Contenido Normal de la Invitación Web -->
+  <div class="container text-center py-5">
+    <h1>Bautizo de Mateo Alejandro</h1>
+    <p>Te esperamos para celebrar este momento tan especial.</p>
+  </div>
+
+  <!-- Botón Flotante (Se activa vía JS si hay pases validificados) -->
+  <a id="btnPases" href="#" class="btn-pases-flotante d-none">
+    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M22 10V6c0-1.11-.9-2-2-2H4c-1.1 0-1.99.89-1.99 2v4c1.1 0 1.99.9 1.99 2s-.89 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2s.9-2 2-2zm-2-1.5c-1.25.75-2 2.07-2 3.5s.75 2.75 2 3.5V18H4v-2.5c1.25-.75 2-2.07 2-3.5s-.75-2.75-2-3.5V6h16v2.5z"/>
+    </svg>
+    Ver pases disponibles (<span id="numPases">0</span>)
+  </a>
+
+  <script>
+    const URL_BACKEND = "https://script.google.com/macros/s/AKfycbzDHN2CCxipYYqSAuMFvG-BcZtURRQmM34dH8_KBChDsP8K-OHrHYIG82dc4vge0Tbo/exec";
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      if (id) {
+        try {
+          const res = await fetch(`${URL_BACKEND}?id=${id}`);
+          const data = await res.json();
+
+          if (data.ok) {
+            // Configurar el botón flotante
+            const btnPases = document.getElementById("btnPases");
+            document.getElementById("numPases").textContent = data.pasesRestantes;
+            
+            // Redirecciona a la segunda web pasando el mismo ID
+            btnPases.href = `pases.html?id=${id}`;
+            btnPases.classList.remove("d-none");
+          }
+        } catch (e) {
+          console.error("Error al consultar la BD", e);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
