@@ -117,10 +117,7 @@
             correctLevel : QRCode.CorrectLevel.H
           });
 
-          // Configurar WhatsApp
-          const mensajeWA = `¡Hola ${nombre}! 👋\nAquí tienes tu pase digital para el evento.\n\n🎟️ Pases asignados: ${pases}\n👉 Ver Invitación y QR: ${linkInvitacion}`;
-          document.getElementById("btnWhatsapp").href = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensajeWA)}`;
-
+        
           // Mostrar tarjeta resultado
           document.getElementById("formCrear").classList.add("d-none");
           document.getElementById("resultadoContainer").classList.remove("d-none");
