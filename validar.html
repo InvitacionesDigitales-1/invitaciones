@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validación de Accesos</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    .card-validar {
+      border-radius: 20px;
+      border: none;
+    }
+  </style>
+</head>
+<body class="d-flex align-items-center justify-content-center min-vh-100 p-3">
+
+  <div class="card card-validar bg-dark text-white p-4 text-center shadow-lg w-100" style="max-width: 400px;">
+    
+    <!-- Estado de carga mientras se consulta la BD -->
+    <div id="loadingBox" class="py-4">
+      <div class="spinner-border text-warning mb-3" role="status"></div>
+      <p class="fs-5 fw-semibold mb-0">Consultando BD y descontando pase...</p>
+    </div>
+
+    <!-- Resultado final del escaneo -->
+    <div id="resultadoBox" class="d-none">
+      <h3 id="nombreInvitado" class="h4 mb-3">---</h3>
+      
+      <div id="alertBox" class="alert py-3 px-2 fw-bold fs-5 mb-3" role="alert"></div>
+
+      <a href="javascript:void(0)" onclick="location.reload()" class="btn btn-outline-light rounded-pill btn-sm mt-2">
+        Listo para siguiente escaneo
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    const URL_BACKEND = "https://script.google.com/macros/s/AKfycbzDHN2CCxipYYqSAuMFvG-BcZtURRQmM34dH8_KBChDsP8K-OHrHYIG82dc4vge0Tbo/exec";
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const params = new URLSearchParams(window.location.search);
+      const idInvitacion = params.get("id");
+
+      const loadingBox = document.getElementById("loadingBox");
+      const resultadoBox = document.getElementById("resultadoBox");
+      const alertBox = document.getElementById("alertBox");
+      const nombreInvitado = document.getElementById("nombreInvitado");
+
+      if (!idInvitacion) {
+        loadingBox.classList.add("d-none");
+        resultadoBox.classList.remove("d-none");
+        alertBox.className = "alert alert-danger fw-bold fs-5";
+        alertBox.textContent = "Error: QR sin parámetro ID";
+        return;
+      }
+
+      try {
+        // Ejecución automática de consulta y descuento
+        const res = await fetch(URL_BACKEND, {
+          method: "POST",
+          body: JSON.stringify({
+            accion: "descontar",
+            id: idInvitacion
+          })
+        });
+
+        const data = await res.json();
+        
+        loadingBox.classList.add("d-none");
+        resultadoBox.classList.remove("d-none");
+
+        if (data.acceso) {
+          // Si la BD restó el pase con éxito
+          alertBox.className = "alert alert-success fw-bold fs-5";
+          alertBox.textContent = data.mensaje; // "Verificado. Quedan X pases."
+        } else {
+          // Si la BD detectó 0 pases disponibles
+          alertBox.className = "alert alert-danger fw-bold fs-5";
+          alertBox.textContent = data.mensaje; // "Invitación con 0 pases, No acceso."
+        }
+
+      } catch (error) {
+        console.error("Error al conectar con la BD:", error);
+        loadingBox.classList.add("d-none");
+        resultadoBox.classList.remove("d-none");
+        alertBox.className = "alert alert-warning fw-bold fs-5";
+        alertBox.textContent = "Error de conexión con el servidor.";
+      }
+    });
+  </script>
+</body>
+</html>

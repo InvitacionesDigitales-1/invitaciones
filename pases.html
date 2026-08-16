@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tus Pases de Acceso</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- 1. Cargar la librería local desde recursos/qrcode.min.js -->
+  <script src="recursos/qrcode.min.js"></script>
+
+  <style>
+    /* Estilo para centrar el QR generado en el contenedor */
+    #qrcode img {
+      margin: 0 auto;
+      padding: 10px;
+      background: #ffffff;
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body class="bg-light d-flex align-items-center min-vh-100 py-4">
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5 text-center">
+        <div class="card shadow-lg border-0 rounded-4 p-4">
+          
+          <h2 id="nombreInvitado" class="h4 mb-1">Cargando...</h2>
+          <p class="text-muted small mb-3">Pase de Acceso al Evento</p>
+
+          <div class="bg-light p-3 rounded-3 mb-3 border">
+            <span class="d-block text-muted small">Pases Disponibles</span>
+            <span id="pasesCount" class="display-4 fw-bold text-success">-</span>
+            <span id="pasesTotales" class="d-block text-muted small"></span>
+          </div>
+
+          <!-- 2. Div donde la librería va a insertar el elemento Canvas / Img del QR -->
+          <div id="qrcode" class="my-3"></div>
+
+          <p class="text-muted small">Muestra este código QR al recepcionista en la entrada del evento.</p>
+
+          <a href="javascript:history.back()" class="btn btn-outline-secondary btn-sm mt-2">← Volver a la Invitación</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const URL_BACKEND = "https://script.google.com/macros/s/AKfycbzDHN2CCxipYYqSAuMFvG-BcZtURRQmM34dH8_KBChDsP8K-OHrHYIG82dc4vge0Tbo/exec";
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      if (!id) {
+        document.body.innerHTML = "<h3 class='text-center mt-5'>Pase no válido</h3>";
+        return;
+      }
+
+      try {
+        const res = await fetch(`${URL_BACKEND}?id=${id}`);
+        const data = await res.json();
+
+        if (data.ok) {
+          document.getElementById("nombreInvitado").textContent = data.nombre;
+          document.getElementById("pasesCount").textContent = data.pasesRestantes;
+          document.getElementById("pasesTotales").textContent = `de ${data.pasesTotales} pases asignados`;
+
+          // Construir dinámicamente la URL completa hacia validar.html
+          const urlBase = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+          const urlValidacion = `${urlBase}/validar.html?id=${id}`;
+
+          // 3. Generación del Código QR con la librería local
+          new QRCode(document.getElementById("qrcode"), {
+            text: urlValidacion,
+            width: 220,
+            height: 220,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H // Alto nivel de corrección de errores
+          });
+
+        } else {
+          alert("No se encontró el pase.");
+        }
+      } catch (error) {
+        console.error("Error al obtener la información:", error);
+      }
+    });
+  </script>
+</body>
+</html>
