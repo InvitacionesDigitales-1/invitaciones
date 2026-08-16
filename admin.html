@@ -37,7 +37,7 @@
 
       <div class="mb-4">
         <label for="pases" class="form-label text-muted small">Número de Pases</label>
-        <input type="number" id="pases" class="form-control  text-black border-0" min="1" value="2" required>
+        <input type="number" id="pases" class="form-control  text-black border-0" min="1" required>
       </div>
 
       <button type="submit" id="btnGuardar" class="btn btn-warning w-100 py-3 rounded-pill fw-bold">
@@ -99,7 +99,7 @@
 
         if (data.ok) {
           const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
-          const linkInvitacion = `${baseUrl}/invitacion.html?id=${data.id}`;
+          const linkInvitacion = `${baseUrl}/baby.html?id=${data.id}`;
 
           // Actualizar datos en la tarjeta
           document.getElementById("previewNombre").textContent = nombre;
