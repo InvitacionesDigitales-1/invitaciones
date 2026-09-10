@@ -144,7 +144,7 @@
         scale: 2 // Mayor resolución para la imagen descargada
       }).then((canvas) => {
         const link = document.createElement("a");
-        link.download = `Pase_${nombreInvitadoActual.replace(/\s+/g, '_')}.png`;
+        link.download = `${nombreInvitadoActual.replace(/\s+/g, '_')}.png`;
         link.href = canvas.toDataURL("image/png");
         link.click();
       });
