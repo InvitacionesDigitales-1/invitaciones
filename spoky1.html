@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Cumpleaños - Melissa | Spooky Birthday</title>
+  
+  <!-- Tipografías Google Fonts (Cursiva Suave + Texto Limpio) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome (Iconos) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       VARIABLES DE COLOR (SISTEMA DE DISEÑO)
+       ========================================================================== */
+    :root {
+      --bg-surface: #FCE1D4;      /* Rosa Claro Pastel */
+      --color-primary: #EE1B6B;   /* Rosa Fucsia */
+      --color-secondary: #F3BACF; /* Rosa Claro */
+      --color-dark: #1A1818;      /* Negro Azabache */
+      --color-white: #FFFFFF;     
+      
+      /* --- TIPOGRAFÍAS --- */
+      --font-heading: 'Caveat', cursive; /* Cursiva elegante, relajada y poco pronunciada */
+      --font-body: 'Poppins', sans-serif; /* Lectura clara para las tarjetas y textos */
+
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+
+      --shadow-soft: 0 10px 30px rgba(238, 27, 107, 0.12);
+      --shadow-bold: 0 12px 32px rgba(26, 24, 24, 0.18);
+    }
+
+    /* ==========================================================================
+       ESTILOS BASE
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-surface);
+      color: var(--color-dark);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      
+      background-image: url('recursos/gris.png'); /* Ruta de tu imagen */
+      background-repeat: repeat;           /* Repite la imagen para formar el patrón */
+      background-size: 250px;              /* Ajusta el tamaño de la repetición */
+      background-attachment: fixed;        /* Mantiene el fondo fijo al hacer scroll */
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      color: var(--color-primary);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 50px 0;
+    }
+
+    /* ==========================================================================
+       HERO / ENCABEZADO
+       ========================================================================== */
+    .hero {
+      text-align: center;
+      padding: 70px 20px 50px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(252,225,212,0) 100%);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--color-white);
+      color: var(--color-dark);
+      padding: 8px 20px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 20px;
+      border: 2px solid var(--color-secondary);
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 0px var(--color-white);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      color: var(--color-dark);
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+
+    .hero-card {
+      background-color: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-soft);
+      border: 3px solid var(--color-secondary);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .event-date {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 6px;
+    }
+
+    .event-location-text {
+      color: var(--color-dark);
+      font-size: 1rem;
+    }
+
+    /* ==========================================================================
+       CONTADOR REGRESIVO
+       ========================================================================== */
+    .countdown-section {
+      text-align: center;
+    }
+
+    .countdown-title {
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+      color: var(--color-dark);
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .countdown-item {
+      background-color: var(--color-dark);
+      color: var(--color-white);
+      padding: 16px 8px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-bold);
+    }
+
+    .countdown-number {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: var(--color-secondary);
+      line-height: 1;
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 6px;
+      opacity: 0.9;
+    }
+
+    /* ==========================================================================
+       ITINERARIO (TIMELINE)
+       ========================================================================== */
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background-color: var(--color-primary);
+      margin: 8px auto 0;
+      border-radius: var(--radius-full);
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 550px;
+      margin: 0 auto;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 39px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: var(--color-secondary);
+      border-radius: var(--radius-full);
+    }
+
+    .timeline-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .timeline-icon {
+      width: 42px;
+      height: 42px;
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      z-index: 1;
+      box-shadow: 0 0 0 4px var(--bg-surface);
+      flex-shrink: 0;
+    }
+
+    .timeline-content {
+      background-color: var(--color-white);
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      flex-grow: 1;
+      box-shadow: var(--shadow-soft);
+      border-left: 4px solid var(--color-primary);
+    }
+
+    .timeline-time {
+      font-weight: 700;
+      color: var(--color-primary);
+      font-size: 0.9rem;
+    }
+
+    .timeline-item-title {
+      font-size: 1.15rem;
+      color: var(--color-dark);
+      margin-top: 2px;
+    }
+
+    /* ==========================================================================
+       UBICACIÓN Y SUGERENCIA DE REGALOS
+       ========================================================================== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background-color: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+      border: 2px solid rgba(243, 186, 207, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      background-color: var(--bg-surface);
+      color: var(--color-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .card-text {
+      font-size: 0.95rem;
+      color: #444;
+      margin-bottom: 24px;
+    }
+
+    /* ==========================================================================
+       BOTONES Y ACCIONES
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      width: 100%;
+    }
+
+    .btn-whatsapp {
+      background-color: #25D366;
+      color: var(--color-white);
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+    }
+
+    .btn-whatsapp:hover {
+      background-color: #20ba5a;
+      transform: translateY(-2px);
+    }
+
+    .btn-location {
+      background-color: var(--color-dark);
+      color: var(--color-white);
+      box-shadow: var(--shadow-bold);
+    }
+
+    .btn-location:hover {
+      background-color: #333;
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    footer {
+      text-align: center;
+      padding: 36px 20px;
+      background-color: var(--color-dark);
+      color: var(--color-white);
+      margin-top: 40px;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE DESIGN Y AJUSTES SVG
+       ========================================================================== */
+    .cake-svg-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px auto 20px;
+      width: 100%;
+    }
+
+    .cake-icon-img {
+      width: 70px;
+      height: 70px;
+      display: block;
+      object-fit: contain;
+    }
+
+    @media (max-width: 480px) {
+      .countdown-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .timeline::before {
+        left: 21px;
+      }
+
+      .timeline-item {
+        gap: 12px;
+      }
+
+      .timeline-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+      }
+      
+      .cake-icon-img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <i class="fa-solid fa-ghost"></i> Spooky Birthday
+      </div>
+      <h1 class="hero-title">Mi Cumpleaños</h1>
+      
+      <!-- ICONO ENLAZADO Y CENTRADO -->
+      <div class="cake-svg-wrapper">
+        <img 
+          src="https://www.svgrepo.com/show/431500/cake.svg" 
+          alt="Pastel de Cumpleaños" 
+          class="cake-icon-img"
+        />
+      </div>
+      
+      <p class="hero-subtitle">Melissa ✨ ¡Estás invitado!</p>
+      
+      <div class="hero-card">
+        <p class="event-date"><i class="fa-regular fa-calendar-check"></i> Jueves, 19 de Noviembre 2026</p>
+        <p class="event-location-text"><i class="fa-solid fa-location-dot"></i> Tijuana, B.C., México</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTADOR REGRESIVO -->
+  <section class="countdown-section">
+    <div class="container">
+      <h2 class="countdown-title">¿Cuánto falta para la fiesta? 🎈</h2>
+      <div class="countdown-grid">
+        <div class="countdown-item">
+          <div class="countdown-number" id="days">00</div>
+          <div class="countdown-label">Días</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="hours">00</div>
+          <div class="countdown-label">Horas</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="minutes">00</div>
+          <div class="countdown-label">Minutos</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="seconds">00</div>
+          <div class="countdown-label">Segundos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ITINERARIO -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">ITINERARIO</h2>
+      <div class="timeline">
+        
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <i class="fa-solid fa-door-open"></i>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-time">06:00 PM</span>
+            <h3 class="timeline-item-title">Inicio de la fiesta</h3>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <i class="fa-solid fa-camera"></i>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-time">07:00 PM</span>
+            <h3 class="timeline-item-title">Hora de fotos</h3>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <i class="fa-solid fa-cake-candles"></i>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-time">09:00 PM</span>
+            <h3 class="timeline-item-title">Hora de pastel</h3>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- UBICACIÓN Y SUGERENCIA DE REGALOS -->
+  <section>
+    <div class="container">
+      <div class="cards-grid">
+        
+        <!-- Tarjeta de Ubicación (Tijuana, B.C.) -->
+        <div class="card">
+          <div>
+            <div class="card-icon">
+              <i class="fa-solid fa-map-location-dot"></i>
+            </div>
+            <h3 class="card-title">Ubicación</h3>
+            <p class="card-text">
+              <strong>Jardín de Eventos Las Palmas</strong><br>
+              Av. Revolución #1234, Zona Centro,<br>
+              22000 Tijuana, B.C.
+            </p>
+          </div>
+          <a href="https://maps.google.com/?q=Av.+Revolucion+Tijuana+B.C." target="_blank" rel="noopener" class="btn btn-location">
+            <i class="fa-solid fa-diamond-turn-right"></i> Ver en Google Maps
+          </a>
+        </div>
+
+        <!-- Tarjeta de Sugerencia de Regalos -->
+        <div class="card">
+          <div>
+            <div class="card-icon">
+              <i class="fa-solid fa-gift"></i>
+            </div>
+            <h3 class="card-title">Sugerencia de Regalos</h3>
+            <p class="card-text">
+              Tu presencia es mi mejor regalo. Si deseas obsequiarme algo, una lluvia de sobres o ropa de mi lista de deseos será ideal y muy apreciada. 💌
+            </p>
+          </div>
+          <!-- Botón programado para Amazon -->
+          <a href="https://www.amazon.com.mx/s?k=ropa+mujer" target="_blank" rel="noopener noreferrer" class="btn" style="background-color: #FF9900; color: #1A1818; text-decoration: none;">
+            <i class="fa-brands fa-amazon" style="font-size: 1.2rem;"></i> Ver sugerencias en Amazon
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIRMACIÓN DE ASISTENCIA (WHATSAPP) -->
+  <section style="text-align: center; background-color: var(--color-white); border-radius: var(--radius-lg); max-width: 800px; margin: 20px auto 0; box-shadow: var(--shadow-soft);">
+    <div class="container" style="padding: 40px 20px;">
+      <h2 style="font-size: 2rem; margin-bottom: 10px;">¿Me acompañas?</h2>
+      <p style="margin-bottom: 24px; color: #555;">Por favor confirma tu asistencia dando clic al siguiente botón:</p>
+      
+      <div style="max-width: 380px; margin: 0 auto;">
+        <a href="https://wa.me/526641234567?text=%C2%A1Hola%20Melissa!%20Confirmo%20mi%20asistencia%20a%20tu%20cumplea%C3%B1os%20el%2019%20de%20noviembre.%20%C2%A1Nos%20vemos%20pronto!" target="_blank" rel="noopener" class="btn btn-whatsapp">
+          <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Confirmar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>¡Te espero para celebrar juntos! 🎀 Spooky Birthday Melissa 2026</p>
+    </div>
+  </footer>
+
+  <!-- LÓGICA JAVASCRIPT (CONTADOR) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Fecha objetivo: 19 de Noviembre de 2026 a las 18:00 hrs
+      const targetDate = new Date('November 19, 2026 18:00:00').getTime();
+
+      const updateCountdown = () => {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference > 0) {
+          const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+          document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+          document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+          document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+          document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+        } else {
+          document.getElementById('days').innerText = '00';
+          document.getElementById('hours').innerText = '00';
+          document.getElementById('minutes').innerText = '00';
+          document.getElementById('seconds').innerText = '00';
+        }
+      };
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    });
+  </script>
+
+</body>
+</html>
